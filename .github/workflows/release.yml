@@ -1,0 +1,52 @@
+name: Create Release Binary
+
+on:
+  push:
+    tags:
+      - 'v*' # e.g., v1.0, v1.0.1
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.21' 
+
+      - name: Install X11 Libraries
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libx11-dev \
+            libxrandr-dev \
+            libxinerama-dev \
+            libxcursor-dev \
+            libxext-dev \
+            libxkbcommon-dev \
+            libxxf86vm-dev
+
+      - name: Build
+        env:
+          BINARY_NAME: pocitej-praci
+        run: |
+          echo "Building binary (dynamically linked to X11)..."
+          go build -v -o $BINARY_NAME -ldflags="-s -w" ./...
+          
+      # 3. Create the release and upload the binary
+      - name: Create Release and Upload Binary
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG_NAME: ${{ github.ref_name }}
+          BINARY_NAME: pocitej-praci
+        run: |
+          gh release create $TAG_NAME \
+             --title "Release $TAG_NAME" \
+             --notes "New release" \
+             "$BINARY_NAME"
