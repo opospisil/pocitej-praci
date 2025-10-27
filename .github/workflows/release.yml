@@ -18,7 +18,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
-          go-version: '1.21' 
+          go-version: '1.25' 
 
       - name: Install X11 Libraries
         run: |
@@ -37,7 +37,7 @@ jobs:
           BINARY_NAME: pocitej-praci
         run: |
           echo "Building binary (dynamically linked to X11)..."
-          go build -v -o $BINARY_NAME -ldflags="-s -w" ./...
+          go build -v -o $BINARY_NAME -ldflags="-s -w" .
           
       # 3. Create the release and upload the binary
       - name: Create Release and Upload Binary
