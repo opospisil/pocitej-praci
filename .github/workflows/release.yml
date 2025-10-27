@@ -31,7 +31,8 @@ jobs:
             libxext-dev \
             libxkbcommon-dev \
             libxxf86vm-dev \
-            libgl1-mesa-dev
+            libgl1-mesa-dev \
+            libxi-dev
 
       - name: Build
         env:
