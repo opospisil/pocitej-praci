@@ -16,6 +16,9 @@ understand others.
 - **Auto-Hide**: Characters automatically disappear after a configurable duration (default: 1.5 second)
 - **Smart Input**: Ignores non-character keys (arrows, function keys, etc.) to keep interactions simple
 
+![Project Demo](demo.gif)
+
+
 ## Quick Start
 
 ### Prerequisites
