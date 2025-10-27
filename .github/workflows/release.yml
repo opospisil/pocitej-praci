@@ -30,7 +30,8 @@ jobs:
             libxcursor-dev \
             libxext-dev \
             libxkbcommon-dev \
-            libxxf86vm-dev
+            libxxf86vm-dev \
+            libgl1-mesa-dev
 
       - name: Build
         env:
